@@ -9,13 +9,13 @@
     <h1>Real-time Dashboard</h1>
     <div
       x-data="{ count: 0 }"
-      x-init="(() => {
+      x-init="() => {
           const ws = new WebSocket('ws://' + window.location.host + '/ws/events/');
-          ws.onmessage = event => {
+          ws.onmessage = (event) => {
               const data = JSON.parse(event.data);
-              this.count = data.count;  // อัปเดตจำนวนเหตุการณ์ใน Alpine.js
+              count = data.count;  // ใช้ count ตรงๆ แทน this.count
           };
-      })()">
+      }">
         <p>จำนวนเหตุการณ์ล่าสุด: <span x-text="count">0</span></p>
     </div>
 

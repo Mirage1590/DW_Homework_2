@@ -10,7 +10,7 @@
 - Channels 3.0+
 - ClickHouse Docker image
 
-#ขั้นตอนการติดตั้งและใช้งาน
+ขั้นตอนการติดตั้งและใช้งาน
 
 1. Clone Repository
 เริ่มต้นด้วยการ clone โปรเจคจาก GitHub มาที่เครื่องของคุณ

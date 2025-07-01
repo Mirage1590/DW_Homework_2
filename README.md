@@ -16,7 +16,7 @@
 เริ่มต้นด้วยการ clone โปรเจคจาก GitHub มาที่เครื่องของคุณ
 
 bash
-git clone https://github.com/yourusername/realtime_data_processing.git
+git clone https://github.com/Mirage1590/DW_Homework_2.git
 cd realtime_data_processing
 
 2. ติดตั้ง Docker และรัน ClickHouse

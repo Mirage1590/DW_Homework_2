@@ -17,7 +17,8 @@
 
 bash
 git clone https://github.com/Mirage1590/DW_Homework_2.git
-cd realtime_data_processing
+
+cd Data_Warehousing
 
 2. ติดตั้ง Docker และรัน ClickHouse
 โปรเจคนี้ใช้ ClickHouse ผ่าน Docker เพื่อจัดเก็บข้อมูล ในการใช้งานโปรเจคคุณจะต้องรัน ClickHouse ใน Docker

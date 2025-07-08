@@ -19,7 +19,9 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', include('Hw2.urls')),
+    #path('', include('Hw2.urls')),
+    path('hw04/', include('hw04.urls')),
 ]

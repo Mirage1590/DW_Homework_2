@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "clickhouse_backend",
     'channels',
-    'Hw2'
+    #'Hw2',
+    'hw04',
+
 ]
 
 MIDDLEWARE = [
@@ -79,10 +82,21 @@ ASGI_APPLICATION = 'Dw_Hw2.asgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": "localhost",
+        "USER": "postgres",
+        "PASSWORD": "pimonwat",
+        "NAME": "postgres",
+    },
+    "clickhouse": {
+        "ENGINE": "clickhouse_backend.backend",
+        "NAME": "testdb",
+        "HOST": "localhost",
+        "USER": "default",
+        "PASSWORD": "",
     }
 }
+DATABASE_ROUTERS = ["hw04.dbrouters.ClickHouseRouter"]
 
 
 # Password validation

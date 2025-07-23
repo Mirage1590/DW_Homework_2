@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DW Homework 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>DW_Homework_2</h1>
+    <h2>นาย ปัณณวิชญ์ จิตพิมลวัฒน์ 65114540365</h2>
+
+    <div class="section">
+        <h2>A. วิธีการติดตั้งและเปิดใช้งาน ClickHouse</h2>
+        <ol>
+            <li><strong>ติดตั้ง Docker</strong>
+                <p>ก่อนอื่นคุณต้องติดตั้ง Docker บนเครื่องของคุณ:</p>
+                <ul>
+                    <li>ดาวน์โหลด Docker จาก <a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a></li>
+                    <li>ติดตั้ง Docker และเปิดใช้งาน</li>
+                    <li>ตรวจสอบการติดตั้งด้วยคำสั่ง:</li>
+                    <pre><code>docker --version</code></pre>
+                </ul>
+            </li>
+            <li><strong>ดาวน์โหลดและรัน ClickHouse ผ่าน Docker</strong>
+                <p>ใช้ Docker เพื่อรัน ClickHouse:</p>
+                <pre><code>docker run --name clickhouse-server -d --ulimit nofile=262144:262144 -p 8123:8123 -p 9000:9000 yandex/clickhouse-server</code></pre>
+            </li>
+            <li><strong>ตรวจสอบการเชื่อมต่อ</strong>
+                <p>คุณสามารถทดสอบการเชื่อมต่อไปยัง ClickHouse ได้ผ่าน <code>clickhouse-client</code>:</p>
+                <pre><code>clickhouse-client --host localhost --port 9000</code></pre>
+            </li>
+            <li><strong>เปิดใช้งาน ClickHouse</strong>
+                <ul>
+                    <li>เข้าใช้งาน ClickHouse ผ่าน Web UI ที่ <a href="http://localhost:8123" target="_blank">http://localhost:8123</a></li>
+                    <li>ใช้คำสั่ง SQL เพื่อเชื่อมต่อและตรวจสอบข้อมูล</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>B. วิธีการนำเข้าข้อมูลจากการบ้านที่ 4 (HW04)</h2>
+        <p>ทำการ Insert ข้อมูลผ่านคำสั่งที่ปรากฏในลิงค์ (<a href="https://clickhouse.com/docs/getting-started/example-datasets/covid19" target="_blank">clickhouse.com</a>) เมื่อทำการเพิ่มข้อมูลเสร็จ ให้ทำการเปิด Server Clickhouse(Docker) ด้วยคำสั่งดังนี้:</p>
+        <pre><code>1. docker run -d --name clickhouse-server -p 9000:9000 -p 8123:8123 yandex/clickhouse-server</code></pre>
+        <pre><code>2. docker exec -it clickhouse-server clickhouse-client</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>C. เขียนวิธีการติดตั้งและเปิดใช้งาน superset</h2>
+        <ol>
+            <li><strong>Get Superset</strong>
+                <pre><code>git clone https://github.com/apache/superset</code></pre>
+            </li>
+            <li><strong>Start the latest official release of Superset</strong>
+                <ol>
+                    <li>Enter the repository you just cloned</li>
+                    <pre><code>$ cd superset</code></pre>
+                    <li>Set the repo to the state associated with the latest official version</li>
+                    <pre><code>$ git checkout tags/5.0.0</code></pre>
+                    <li>Fire up Superset using Docker Compose</li>
+                    <pre><code>$ docker compose -f docker-compose-image-tag.yml up</code></pre>
+                </ol>
+            </li>
+            <li><strong>Login to Superset</strong>
+                <p>Now head over to <a href="http://localhost:8088" target="_blank">http://localhost:8088</a> and log in with the default created account:</p>
+                <ul>
+                    <li>username: admin</li>
+                    <li>password: admin</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>D. วิธีการเชื่อม Superset กับ ClickHouse</h2>
+        <ol>
+            <li><strong>เปิดใช้งาน Superset</strong>
+                <p>เมื่อคุณเข้าใช้งาน Superset ผ่าน <a href="http://localhost:8088" target="_blank">http://localhost:8088</a>, ให้ล็อกอินด้วยข้อมูลผู้ใช้ที่ตั้งค่าไว้</p>
+            </li>
+            <li><strong>เพิ่มฐานข้อมูล ClickHouse</strong>
+                <ul>
+                    <li>ไปที่หน้า "Data" > "Databases"</li>
+                    <li>คลิกที่ "Add Database"</li>
+                    <li>เลือก "ClickHouse" จากเมนูประเภทฐานข้อมูล</li>
+                    <li>กรอกข้อมูลการเชื่อมต่อ:
+                        <ul>
+                            <li><strong>SQLAlchemy URI</strong>: <code>clickhouse://default:@localhost:9000/default</code></li>
+                            <li><strong>Username</strong>: <code>default</code></li>
+                            <li><strong>Password</strong>: รหัสผ่านที่ใช้เชื่อมต่อ</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>ทดสอบการเชื่อมต่อ</strong>
+                <p>คลิกที่ "Test Connection" เพื่อทดสอบว่า Superset สามารถเชื่อมต่อกับฐานข้อมูล ClickHouse ได้</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>E. วิธีการนำเสนอข้อมูลจากข้อมูล b. บน Dashboard ของ Superset พร้อมผลลัพธ์</h2>
+        <ol>
+            <li><strong>สร้าง Chart ใน Superset</strong>
+                <ul>
+                    <li>ไปที่เมนู "Charts" > "Create a new chart"</li>
+                    <li>เลือกฐานข้อมูลที่คุณเชื่อมต่อ (ClickHouse)</li>
+                    <li>เลือกตารางที่คุณนำเข้าในขั้นตอนก่อนหน้า</li>
+                    <li>เลือกรูปแบบการแสดงผล (เช่น Table, Bar chart, Line chart)</li>
+                </ul>
+            </li>
+            <li><strong>เพิ่ม Chart ลงใน Dashboard</strong>
+                <ul>
+                    <li>เมื่อสร้าง chart เสร็จแล้ว, ให้คลิกที่ "Save" และเพิ่มลงใน Dashboard</li>
+                    <li>คุณสามารถสร้าง Dashboard ใหม่หรือเพิ่มลงใน Dashboard ที่มีอยู่แล้ว</li>
+                </ul>
+            </li>
+            <li><strong>ทดสอบและแสดงผล</strong>
+                <ul>
+                    <li>เปิด Dashboard ที่สร้างขึ้นใหม่</li>
+                    <li>ตรวจสอบว่าแสดงผลข้อมูลจาก ClickHouse ได้อย่างถูกต้อง</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="image-container">
+        <img src="https://github.com/user-attachments/assets/522e0026-1ccc-4c0e-a43c-fce62f523930" alt="example image">
+    </div>
+
+    <div class="section">
+        <h2>F. บทสรุปการใช้งาน</h2>
+        <ul>
+            <li><strong>การติดตั้งและเปิดใช้งาน ClickHouse</strong>: ติดตั้ง Docker และรัน ClickHouse บน Docker Container</li>
+            <li><strong>การนำเข้าข้อมูลจากการบ้านที่ 4 (HW04)</strong>: ข้อมูลจากการบ้าน HW04 ถูกนำเข้ามาใน ClickHouse ผ่านคำสั่งที่ระบุในเอกสารของ ClickHouse</li>
+            <li><strong>การติดตั้งและเปิดใช้งาน Apache Superset</strong>: ติดตั้ง Apache Superset โดยการ clone repository จาก GitHub</li>
+            <li><strong>การเชื่อมต่อ Superset กับ ClickHouse</strong>: เพิ่มฐานข้อมูล ClickHouse ใน Superset โดยกรอกข้อมูลการเชื่อมต่อ</li>
+            <li><strong>การนำเสนอข้อมูลบน Dashboard ของ Superset</strong>: สร้าง Chart และเพิ่มลงใน Dashboard ใน Superset</li>
+        </ul>
+    </div>
+
+</body>
+</html>
